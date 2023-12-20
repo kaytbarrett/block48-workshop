@@ -42,6 +42,7 @@ console.log(isValidBrackets("]] [[")); // Output: false
 console.log(isValidBrackets("there (may [be] text){between [y]o[u]r (brackets)}")); //Output: true
 
 
+
 //Problem 2:
 //REACTO
 //Restate: there is an array of ticket amounts, and each index represents one person who would like to buy
@@ -75,3 +76,34 @@ const k = 2;
 const result = ticketTime(tickets, k);
 console.log(result); // Output: 6
 
+
+
+//Problem 3: 
+//REACTO
+//Restate: there is an array of students heights representing how the students are standing in a line from left to right
+//faculty wants to arrange the students heights in ascending order
+//write a function that determines the amount of students whose positions need to change in order to accomplish that line
+//Ex: heights=[1,1,4,2,1,3] output:3
+//Approach: sort the heights array in ascending order
+//another step that compares the changes in that second array to the original, as in how many spots are different
+//this step is going to need a for loop to loop through the sorted array and compare it to the original
+//Code: 
+
+function heightsChecker(heights){
+
+    const sortedHeights = [...heights].sort((a,b) => a - b);
+    let numberOfChanges = 0;
+
+    for (let i = 0; i < sortedHeights.length; i++){
+        if(sortedHeights[i] !== heights[i]){
+            numberOfChanges++;
+        }
+    }
+
+    return numberOfChanges;
+
+}
+
+heights = [1,1,4,2,1,3];
+
+console.log(heightsChecker(heights));
