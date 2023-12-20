@@ -54,16 +54,16 @@ console.log(isValidBrackets("there (may [be] text){between [y]o[u]r (brackets)}"
 //within that while loop, I think a for loop to add time for each iteration through the array/line is needed
 //Code: 
 
-function ticketTime(tickets, k){
+function ticketTime(tickets, k) {
     const remainingTickets = [...tickets]
     let time = 0
 
-    while (remainingTickets[k] > 0 ){
-        for(let i = 0; i < remainingTickets.length; i++){
-            if(remainingTickets[i] > 0) {
+    while (remainingTickets[k] > 0) {
+        for (let i = 0; i < remainingTickets.length; i++) {
+            if (remainingTickets[i] > 0) {
                 remainingTickets[i]--;
                 time++;
-            }  
+            }
         }
     }
 
@@ -89,13 +89,13 @@ console.log(result); // Output: 6
 //this step is going to need a for loop to loop through the sorted array and compare it to the original
 //Code: 
 
-function heightsChecker(heights){
+function heightsChecker(heights) {
 
-    const sortedHeights = [...heights].sort((a,b) => a - b);
+    const sortedHeights = [...heights].sort((a, b) => a - b);
     let numberOfChanges = 0;
 
-    for (let i = 0; i < sortedHeights.length; i++){
-        if(sortedHeights[i] !== heights[i]){
+    for (let i = 0; i < sortedHeights.length; i++) {
+        if (sortedHeights[i] !== heights[i]) {
             numberOfChanges++;
         }
     }
@@ -104,6 +104,51 @@ function heightsChecker(heights){
 
 }
 
-heights = [1,1,4,2,1,3];
+heights = [1, 1, 4, 2, 1, 3];
 
 console.log(heightsChecker(heights));
+
+
+
+//Problem 4
+//REACTO
+//Restate: you are given an array of integers that represents playing cards
+//reorder the deck so when these steps are followed, they are revealed in ascending order
+//step 1: take a card out of the deck, 
+//step 2: whatever is now the top card -> move to the bottom
+//step 3: repeat steps 1 and 2 until there is one card left
+//return this new deck order
+//Ex: Input: deck = [17,13,11,2,3,5,7] Output: [2,13,3,11,5,17,7]
+// 2, 3, 5, 7, 11, 13, 17
+//Approach: first, sort the array in ascending order and create an empty stack
+//then, use while loop as in while there is still a card in the array, keep looping through
+//then use a for loop inside while loop for each index, pop a card then Im not sure
+//Code:
+
+function deckReveal(deck) {
+    const sortedDeck = [...deck].sort((a, b) => a - b);
+
+    const result = [];
+    const indexQueue = [];
+
+    for (let i = 0; i < sortedDeck.length; i++) {
+        indexQueue.push(i);
+    }
+
+    while (indexQueue.length > 0) {
+        const revealedIndex = indexQueue.shift();
+        result[revealedIndex] = sortedDeck.shift();
+
+        if (indexQueue.length > 0) {
+            const moveToBottom = indexQueue.shift();
+            indexQueue.push(moveToBottom);
+        }
+    }
+
+    return result
+}
+
+// Example:
+const deck = [17, 13, 11, 2, 3, 5, 7];
+const output = deckReveal(deck);
+console.log(output);
